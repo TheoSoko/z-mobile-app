@@ -56,7 +56,7 @@ const getImageFromRoute = (routeName?: string): ImageSourcePropType => {
 
 const s = StyleSheet.create({
     Button: {
-        paddingHorizontal: 10.5,
+        paddingHorizontal: 10,
         height: 50,
         //backgroundColor: 'red',
         justifyContent: 'center'

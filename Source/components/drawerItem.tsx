@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
-export default function DrawerItem(props: {label: string, onPress: () => void}){
+export default function CustomDrawerItem(props: {label: string, onPress: () => void}){
     return (
         <TouchableOpacity style={s.itemBox} onPress={() => props.onPress()}>
             <Text style={s.label}>{props.label}</Text>
