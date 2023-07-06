@@ -14,7 +14,8 @@ export default function SearchMenuList(props: {listType: "sources" | "concept" |
     if (l == "country") list = countryList
 
     return (                
-        <View style={[{flexDirection: 'column'}, props.style ]}>
+        <View style={[s.container, props.style]}>
+
             <TouchableOpacity style={s.top_menus} onPress={() => setMenuOpen(!menuOpen)}>
                 <Text style={s.top_menu_text}> { selected || list[0] }</Text>
             </TouchableOpacity>
@@ -23,11 +24,11 @@ export default function SearchMenuList(props: {listType: "sources" | "concept" |
                 (menuOpen) ?
                     <View style={l == "concept" ? s.colMiddle : s.col}>
                     {
-                        list.map((name) => {
+                        list.map((name, i) => {
                             return (
-                                <Pressable onPress={() => setSelected(name)}>
+                                <TouchableOpacity onPress={() => setSelected(name)} key={i}>
                                     <Text style={ l == "concept" ? s.itemTextMiddle : s.itemText }>{name}</Text>
-                                </Pressable>
+                                </TouchableOpacity>
                             )
                         })
                     }
@@ -40,24 +41,36 @@ export default function SearchMenuList(props: {listType: "sources" | "concept" |
 }
 
 const s = StyleSheet.create({
+    container: {
+        zIndex: 1,
+        flexDirection: 'column',
+    },
     col: {
-
+        backgroundColor: "white",
+        borderRadius: 7,
     },
     colMiddle: {
         alignItems: 'center',
-    },
-    itemTextMiddle: {
-
+        backgroundColor: "white",
+        borderRadius: 7,
     },
     itemText: {
-        paddingLeft: 20,
+        paddingLeft: 15,
         marginVertical: 3,
+        color: "black",
+        fontWeight: "500",
+        fontSize: 14,
+    },
+    itemTextMiddle: {
+        marginVertical: 2,
+        color: "black",
+        fontWeight: "500",
+        fontSize: 15,
     },
     top_menus: {
-        paddingHorizontal: 12,
-        //width: 115,
+        //paddingHorizontal: 10,
         paddingVertical: 12.5,
-        marginHorizontal: 4,
+        marginHorizontal: 3.5,
         backgroundColor: "#009AAD",
         borderRadius: 9,
         alignItems: "center"
@@ -67,7 +80,7 @@ const s = StyleSheet.create({
     },
     top_menu_text: {
         color: "white",
-        fontSize: 16,
+        fontSize: 15.5,
         fontWeight: '500',
     },
 
