@@ -1,7 +1,12 @@
 import { TouchableOpacity, Image, ImageSourcePropType, View, StyleSheet } from "react-native";
+import { ReactElement, FunctionComponent, SVGAttributes } from 'react'
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
-import { screenList } from "../bottomTabNav"
+import { screenList } from "../bottomTabNav";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FriendsSvg from "../../../static/tab_menu/friends.svg"
+import HomeSvg from "../../../static/tab_menu/home.svg"
+import LogoZSvg from "../../../static/tab_menu/logo_z.svg"
+import MessageSvg from "../../../static/tab_menu/message.svg"
 
 export default function BottomIcon(props: BottomTabBarButtonProps ){
 
@@ -14,42 +19,42 @@ export default function BottomIcon(props: BottomTabBarButtonProps ){
         {
             (props.to == "/BottomTab/Profile") 
             ? <Ionicons name="person" size={41} color={"#009AAD"}/>
-            : <Image source={getImageFromRoute(props.to)} />
+            : getSVGFromRoute(props.to)
         }
         </TouchableOpacity>
     )
 }
 
-const getImageFromRoute = (routeName?: string): ImageSourcePropType => {
-    let machin: ImageSourcePropType
+const getSVGFromRoute = (routeName?: string): ReactElement => {
+    let SVG: FunctionComponent<SVGAttributes<SVGElement>>
 
     switch (routeName) {
         case undefined:
-            machin = require('../../../static/logos/logo_z_small.png')
+            SVG = MessageSvg
             console.warn("props.to in BottomIcon was not defined")
         break;
         case "/BottomTab/Friends":
-            machin = require('../../../static/tab_menu/friends_small.png')
+            SVG = FriendsSvg
         break;
         case "/BottomTab/Feed":
-            machin = require('../../../static/tab_menu/home_small.png')
+            SVG = HomeSvg
         break;
         case "/BottomTab/Zemus":
-            machin = require('../../../static/logos/logo_z_small.png')
+            SVG = LogoZSvg
         break;
         case "/BottomTab/Messages":
-            machin = require('../../../static/tab_menu/message_small.png')
+            SVG = MessageSvg
         break;
         case "/BottomTab/Profile":
-            machin = require('../../../static/tab_menu/friends-press-review.png')
+            SVG = FriendsSvg
         break;
         default:
-            machin = require('../../../static/logos/logo_z_small.png')
+            SVG = LogoZSvg
             console.warn("props.to in BottomIcon (", routeName ,") does not match one of expected strings")
         break;
     }
 
-    return machin
+    return <SVG height={40} width={40}/>
 }
 
 
@@ -57,6 +62,7 @@ const getImageFromRoute = (routeName?: string): ImageSourcePropType => {
 const s = StyleSheet.create({
     Button: {
         paddingHorizontal: 10,
+        paddingTop: 3,
         height: 50,
         //backgroundColor: 'red',
         justifyContent: 'center'
